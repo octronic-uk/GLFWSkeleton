@@ -10,16 +10,17 @@
  * this file belongs to.
  */
 
+#include "Common/GLHeader.h"
+
 #include "Window.h"
 
-#define GL_SILENCE_DEPRECATION
 
-#include "Widgets/Widget.h"
-#include "AppState.h"
-#include <glad/glad.h>
-#include <glm/gtc/matrix_transform.hpp>
 #include <iostream>
-#include "Logger.h"
+#include <glm/gtc/matrix_transform.hpp>
+
+#include "AppState.h"
+#include "Widgets/Widget.h"
+#include "Common/Logger.h"
 
 using std::cout;
 using std::endl;
@@ -53,9 +54,9 @@ namespace octronic
         mName("PiDash"),
         mAppState(state),
         mClearColor(0.5f,0.5f,0.5f),
-        mCameraPosition(0.f,-50.f,50.f),
-        mCameraPitch(glm::radians(45.0f)),
-        mCameraYaw(glm::radians(-90.0f)),
+        mCameraPosition(0.f,10.f,10.f),
+        mCameraPitch(glm::radians(0.f)),
+        mCameraYaw(glm::radians(0.f)),
         mUpVector(0.f,0.f,1.f),
         mViewMatrix(mat4(1.0f)),
         mProjectionMatrix(mat4(1.0f)),
@@ -185,7 +186,6 @@ namespace octronic
         glfwGetFramebufferSize(mWindow, &mWindowWidth, &mWindowHeight);
         glfwSetWindowCloseCallback(mWindow, WindowShouldCloseCallback);
 
-        GLCheckError();
         return true;
     }
 

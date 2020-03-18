@@ -2,6 +2,7 @@
 
 #include "Window.h"
 #include "Widgets/Grid.h"
+#include "Widgets/ImageWidget.h"
 
 namespace octronic
 {
@@ -26,5 +27,7 @@ namespace octronic
         char** mArgv;
         Window mWindow;
         Grid mGridDrawer;
+        ImageWidget mGaugeBackgroundWidget;
+        ImageWidget mGaugeNeedleWidget;
 	};
 }

@@ -19,15 +19,14 @@
 #include "Grid.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include "../AppState.h"
-#include "../Logger.h"
+#include "../Common/Logger.h"
 
 namespace octronic
 {
 
-    Grid::Grid(AppState* p,
-		float majorSpacing, float minorSpacing,
+    Grid::Grid(AppState* state, float majorSpacing, float minorSpacing,
 		vec3 majorColour, vec3 minorColour)
-        : Widget(p, "Grid"),
+        : Widget3D(state),
           mGridArea(300,300),
           mMajorSpacing(majorSpacing), mMinorSpacing(minorSpacing),
           mMajorColour(majorColour), mMinorColour(minorColour)
@@ -43,7 +42,7 @@ namespace octronic
     bool Grid::Init()
     {
         debug("Grid: {}",__FUNCTION__);
-        if (!Widget::Init()) return false;
+        if (!Widget3D::Init()) return false;
         RecalculateGridLines();
         return true;
     }
@@ -53,9 +52,7 @@ namespace octronic
 
     }
 
-    void
-    Grid::InitMajorGridData
-    ()
+    void Grid::InitMajorGridData()
     {
         debug("Grid: {}",__FUNCTION__);
         WidgetVertex lineStart, lineEnd;
@@ -81,9 +78,7 @@ namespace octronic
         }
     }
 
-    void
-    Grid::InitMinorGridData
-    ()
+    void Grid::InitMinorGridData()
     {
         debug("Grid: {}",__FUNCTION__);
 
@@ -137,30 +132,22 @@ namespace octronic
         mModelMatrix = glm::translate(mat4(1.0f),translation);
     }
 
-    float
-    Grid::GetMajorSpacing
-    ()
+    float Grid::GetMajorSpacing()
     {
         return mMajorSpacing;
     }
 
-    void
-    Grid::SetMajorSpacing
-    (float ms)
+    void Grid::SetMajorSpacing(float ms)
     {
         mMajorSpacing = ms < 1.0f ? 1.0f : ms;
     }
 
-    float
-    Grid::GetMinorSpacing
-    ()
+    float Grid::GetMinorSpacing()
     {
         return mMinorSpacing;
     }
 
-    void
-    Grid::SetMinorSpacing
-    (float ms)
+    void Grid::SetMinorSpacing(float ms)
     {
         mMinorSpacing = ms < 0.1f ? 0.1f : ms;
     }

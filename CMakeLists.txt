@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.0)
-project(PiDash C CXX)
+project(GLFWSkeleton C CXX)
 
 # Compiler Variables ###########################################################
 
@@ -20,6 +20,9 @@ set(CMAKE_COLOR_MAKEFILE   OFF)
 
 file(GLOB_RECURSE SRC_FILES	"src/*.h"        "src/*.cpp")
 
+# Nlohmann JSON
+set(JSON_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/deps/nlohmann")
+
 # GLAD
 set(GLAD_INCLUDE_DIR   "${PROJECT_SOURCE_DIR}/deps/glad/include")
 set(GLAD_SRC           "${PROJECT_SOURCE_DIR}/deps/glad/src/glad.c")
@@ -28,8 +31,8 @@ set(GLAD_SRC           "${PROJECT_SOURCE_DIR}/deps/glad/src/glad.c")
 set(GLM_INCLUDE_DIR    "${PROJECT_SOURCE_DIR}/deps/glm/")
 
 # SOIL
-file(GLOB_RECURSE SOIL_SRC_FILES       "${PRJECT_SOURCE_DIR}/deps/soil/src/*.c")
-set(SOIL_INCLUDE_DIR   "${PRJECT_SOURCE_DIR}/deps/soil/include")
+file(GLOB_RECURSE SOIL_SRC_FILES "${PROJECT_SOURCE_DIR}/deps/soil/src/*.c")
+set(SOIL_INCLUDE_DIR   "${PROJECT_SOURCE_DIR}/deps/soil/include")
 
 # SPDLOG
 set(SPDLOG_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/deps/spdlog/include")
@@ -51,6 +54,7 @@ add_executable(
 include_directories(
 	${glfw3_INCLUDE_DIR}
 	${OpenGL_INCLUDE_DIR}
+	${JSON_INCLUDE_DIR}
 	${GLAD_INCLUDE_DIR}
 	${GLM_INCLUDE_DIR}
 	${SPDLOG_INCLUDE_DIR}
@@ -85,3 +89,10 @@ elseif (APPLE)
 		glfw
 	)
 endif()
+
+add_custom_command(
+	TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "${CMAKE_SOURCE_DIR}/resources"
+    "${CMAKE_CURRENT_BINARY_DIR}"
+)

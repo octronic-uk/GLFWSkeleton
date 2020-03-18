@@ -1,6 +1,6 @@
-#include "AppState.h"
-#include "Logger.h"
 #include <thread>
+#include "AppState.h"
+#include "Common/Logger.h"
 
 using std::this_thread::yield;
 
@@ -11,7 +11,9 @@ namespace octronic
         mArgc(argc),
     	mArgv(argv),
       	mWindow(this),
-        mGridDrawer(this)
+        mGridDrawer(this),
+        mGaugeBackgroundWidget(this,"Images/Gauge/Background.png"),
+        mGaugeNeedleWidget(this,"Images/Gauge/Needle.png")
 	{
 		debug("AppState: Constructor");
     }
@@ -29,6 +31,12 @@ namespace octronic
 		debug("AppState: CreateGLWidgets");
         if (!mGridDrawer.Init()) return false;
         mWindow.AddWidget(&mGridDrawer);
+
+        if (!mGaugeBackgroundWidget.Init()) return false;
+        mWindow.AddWidget(&mGaugeBackgroundWidget);
+
+        if (!mGaugeNeedleWidget.Init()) return false;
+        mWindow.AddWidget(&mGaugeNeedleWidget);
         return true;
     }
 

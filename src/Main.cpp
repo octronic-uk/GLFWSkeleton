@@ -5,7 +5,7 @@
 
 #include "AppState.h"
 #include "Window.h"
-#include "Logger.h"
+#include "Common/Logger.h"
 
 using namespace octronic;
 
@@ -18,5 +18,10 @@ int main(int argc,char** argv)
     {
 	    return s.Run();
     }
-    exit(1);
+    else
+    {
+        error("Main: AppState Initialisation failed");
+    	exit(1);
+    }
+    exit(0);
 }

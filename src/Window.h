@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GLHeader.h"
+#include "Common/GLHeader.h"
 
 #include <vector>
 #include <string>

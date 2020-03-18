@@ -16,14 +16,14 @@
  * this file belongs to.
  */
 #pragma once
-#include "Widget.h"
+#include "Widget3D.h"
 
 using glm::vec3;
 using glm::vec2;
 
 namespace octronic
 {
-    class Grid : public Widget
+    class Grid : public Widget3D
     {
     public:
 
